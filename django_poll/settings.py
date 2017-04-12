@@ -25,7 +25,7 @@ SECRET_KEY = '5**r3e*284zw(yvikl^_ar-t8a_votka5q(0+8-(&jlo6zh1%n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://lionder.pythonanywhere.com/']
+ALLOWED_HOSTS = ['lionder.pythonanywhere.com']
 
 
 # Application definition
