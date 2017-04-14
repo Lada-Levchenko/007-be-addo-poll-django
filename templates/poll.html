@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ poll.name }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<form method="post" action="answer">
+
+    <table>
+        {% csrf_token %}
+        {{ formset }}
+    </table>
+    <input type="submit" value="Submit" />
+</form>
+{% endblock %}

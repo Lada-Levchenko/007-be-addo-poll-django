@@ -11,6 +11,10 @@ FIELD_TYPE_CHOICES = (
 
 class Choice(models.Model):
     text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.text
 
 
 class Question(models.Model):
@@ -18,9 +22,15 @@ class Question(models.Model):
     choices = models.ManyToManyField(Choice, related_name="question")
     type = models.CharField(max_length=1, choices=FIELD_TYPE_CHOICES)
 
+    def __str__(self):
+        return self.text
+
 
 class Poll(models.Model):
     name = models.CharField(max_length=200)
     text = models.TextField()
     questions = models.ManyToManyField(Question, related_name="poll")
     votes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name

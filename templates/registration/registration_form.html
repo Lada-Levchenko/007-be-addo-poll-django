@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <form action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" placeholder="Username" />
+        <label for="email">E-mail:</label>
+        <input type="email" name="email" id="email" placeholder="E-mail"/>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" placeholder="Password" />
+      <input type="submit" value="Submit" />
+    </form>
+{% endblock %}
+

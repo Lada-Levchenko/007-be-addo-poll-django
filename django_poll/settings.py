@@ -25,7 +25,7 @@ SECRET_KEY = '5**r3e*284zw(yvikl^_ar-t8a_votka5q(0+8-(&jlo6zh1%n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['lionder.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'lionder.pythonanywhere.com']
 
 
 # Application definition
@@ -123,3 +123,6 @@ STATIC_URL = '/static/'
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+
+LOGIN_REDIRECT_URL = "index"
+LOGOUT_REDIRECT_URL = "index"
