@@ -42,7 +42,7 @@ def answer(request, poll_id):
         if formset.is_valid():
             curr_poll.votes += 1
             for form in formset.forms:
-                choices = form.cleaned_data['model'].choices
+                choices = form.cleaned_data['choices']
                 for choice in choices:
                     choice.votes += 1
         response = "Thanks for your answers!"
