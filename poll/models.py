@@ -9,28 +9,28 @@ FIELD_TYPE_CHOICES = (
 )
 
 
-class Choice(models.Model):
-    text = models.CharField(max_length=200)
+class Poll(models.Model):
+    name = models.CharField(max_length=200)
+    text = models.TextField()
     votes = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.text
+        return self.name
 
 
 class Question(models.Model):
+    poll = models.ForeignKey(Poll, related_name="questions")
     text = models.CharField(max_length=200)
-    choices = models.ManyToManyField(Choice, related_name="question")
     type = models.CharField(max_length=1, choices=FIELD_TYPE_CHOICES)
 
     def __str__(self):
         return self.text
 
 
-class Poll(models.Model):
-    name = models.CharField(max_length=200)
-    text = models.TextField()
-    questions = models.ManyToManyField(Question, related_name="poll")
+class Choice(models.Model):
+    question = models.ForeignKey(Question, related_name="choices")
+    text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.name
+        return self.text

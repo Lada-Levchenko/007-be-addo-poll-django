@@ -6,4 +6,4 @@ from .models import Question
 class QuestionForm(ModelForm):
     class Meta:
         model = Question
-        fields = ['text', 'choices']
+        fields = ['text', 'choice_set']
