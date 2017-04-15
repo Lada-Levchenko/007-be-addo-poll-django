@@ -1,14 +1,8 @@
-from django import forms
 from django.contrib import admin
 
 from .models import Question, Choice
 from django.utils.safestring import mark_safe
 from django.core.urlresolvers import reverse
-
-
-class QuestionForm(forms.Form):
-    text = forms.CharField(max_length=100)
-    choices = forms.ModelMultipleChoiceField(queryset=Choice.objects.all())
 
 
 class ChoiceInline(admin.TabularInline):

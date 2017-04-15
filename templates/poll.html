@@ -2,14 +2,18 @@
 
 {% block content %}
 <h1>{{ poll.name }}</h1>
-
+<p>{{ poll.text }}</p>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-<form method="post" action="answer">
-
-    <table>
-        {% csrf_token %}
-        {{ formset }}
-    </table>
+<form method="post" action={% url "answer" poll.id %}>
+{% csrf_token %}
+    {% for question in poll.questions.all %}
+        <label for="select"{{ forloop.counter }}>{{ question.text }}</label>
+        <select name="select" id="select"{{ forloop.counter }}>
+            {% for choice in question.choices.all %}
+                <option value={{ choice.id }}>{{ choice.text }}</option>
+            {% endfor %}
+        </select>
+    {% endfor %}
     <input type="submit" value="Submit" />
 </form>
 {% endblock %}
