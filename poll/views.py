@@ -55,5 +55,6 @@ def answer(request, poll_id):
     return render_to_response('notification.html', response)
 
 
-def votes(request, poll_id):
-    return HttpResponse("Votes for poll %s." % poll_id)
+def dashboard(request):
+    polls = Poll.objects.all()
+    return render_to_response('admin/dashboard.html', {'polls': polls})

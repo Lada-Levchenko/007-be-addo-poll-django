@@ -10,6 +10,4 @@ urlpatterns = [
     url(r'^(?P<poll_id>[0-9]+)/$', views.poll, name='poll'),
     # ex: /5/answer
     url(r'^(?P<poll_id>[0-9]+)/answer$', views.answer, name='answer'),
-    # ex: /5/vote/
-    url(r'^(?P<question_id>[0-9]+)/votes/$', views.votes, name='votes'),
 ]

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        <h1>Dashboard</h1>
+        <a href="/admin">To admin site</a>
+        <br />
+        <table>
+            <tr>
+                <th>Poll name</th>
+                <th>Votes</th>
+            </tr>
+            {% for poll in polls %}
+                <tr>
+                    <td>{{ poll.name }}</td>
+                    <td>{{ poll.votes }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
