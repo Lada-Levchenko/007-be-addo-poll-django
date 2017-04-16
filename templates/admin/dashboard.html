@@ -2,7 +2,7 @@
 {% block content %}
     <div>
         <h1>Dashboard</h1>
-        <a href="/admin">To admin site</a>
+        <a href={% url "admin:index" %}>To admin site</a>
         <br />
         <table>
             <tr>
@@ -11,10 +11,33 @@
             </tr>
             {% for poll in polls %}
                 <tr>
-                    <td>{{ poll.name }}</td>
+                    <td><a href={% url "admin:dashboard_poll" poll.id %}>{{ poll.name }}</a></td>
                     <td>{{ poll.votes }}</td>
                 </tr>
             {% endfor %}
         </table>
+        {% if curr_poll is not None %}
+            <table>
+                <tr>
+                    <th>Question</th>
+                    <th>Choices</th>
+                </tr>
+                {% for question in curr_poll.questions.all %}
+                    <tr>
+                        <td>{{ question.text }}</td>
+                        <td>
+                            <table>
+                                {% for choice in question.choices.all %}
+                                    <tr>
+                                        <td>{{ choice.text }}</td>
+                                        <td>votes: {{ choice.votes }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
     </div>
 {% endblock %}

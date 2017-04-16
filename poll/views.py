@@ -55,6 +55,12 @@ def answer(request, poll_id):
     return render_to_response('notification.html', response)
 
 
-def dashboard(request):
+def dashboard(request,):
     polls = Poll.objects.all()
     return render_to_response('admin/dashboard.html', {'polls': polls})
+
+
+def dashboard_poll(request, poll_id):
+    curr_poll = Poll.objects.get(id=poll_id)
+    polls = Poll.objects.all()
+    return render_to_response('admin/dashboard.html', {'curr_poll': curr_poll, 'polls': polls})
