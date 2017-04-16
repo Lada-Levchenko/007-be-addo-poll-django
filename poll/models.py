@@ -2,10 +2,10 @@ from django.db import models
 
 
 FIELD_TYPE_CHOICES = (
-    ('0', 'radio button'),
+    ('0', 'radio'),
     ('1', 'select'),
     ('2', 'checkbox'),
-    ('3', 'multiselect')
+    ('3', 'multiple')
 )
 
 

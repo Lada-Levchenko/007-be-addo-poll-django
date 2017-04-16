@@ -3,12 +3,10 @@ from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_protect
 
-from .models import Poll, Question, Choice
+from .models import Poll, Question, Choice, FIELD_TYPE_CHOICES
 from django.contrib.auth.models import User
 
-from django.forms import formset_factory
 from django.shortcuts import render_to_response
-from .forms import QuestionForm
 
 
 def index(request):
@@ -29,7 +27,7 @@ def register(request):
 @csrf_protect
 def poll(request, poll_id):
     curr_poll = Poll.objects.get(id=poll_id)
-    mdict = {'poll': curr_poll}
+    mdict = {'poll': curr_poll, 'types': FIELD_TYPE_CHOICES}
     mdict.update(csrf(request))
     return render_to_response('poll.html', mdict)
 
@@ -40,15 +38,21 @@ def answer(request, poll_id):
         curr_poll = Poll.objects.get(id=poll_id)
         curr_poll.votes += 1
         curr_poll.save()
-        selected_list = request.POST.getlist('select')
-        for selected in selected_list:
+        choices = request.POST.getlist('choices')
+        for selected in choices:
             choice = Choice.objects.get(id=selected)
             choice.votes += 1
             choice.save()
-        response = "Thanks for your answers!"
+        response = {
+            'notification': "Thank you for your answers!",
+            'notification_type': 'success'
+        }
     else:
-        response = "Something went wrong!"
-    return HttpResponse(response)
+        response = {
+            'notification': "Something went wrong! Go back home...",
+            'notification_type': 'danger'
+        }
+    return render_to_response('notification.html', response)
 
 
 def votes(request, poll_id):
