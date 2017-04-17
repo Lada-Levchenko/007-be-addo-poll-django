@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Polls</h1>
+    <h2>Polls</h2>
     {% if user.is_authenticated %}
     <ul>
     {% for poll in polls %}

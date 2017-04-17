@@ -2,29 +2,34 @@
 {% load index %}
 
 {% block content %}
+
 <h1>{{ poll.name }}</h1>
 <p>{{ poll.text }}</p>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-<form method="post" action={% url 'answer' poll.id %}>
+<form method="post" action="{% url 'answer' poll.id %}">
 {% csrf_token %}
     {% for question in poll.questions.all %}
-        <fieldset>
+        <fieldset class="form-group">
             {% if types|index:question.type|index:1 == "select" or types|index:question.type|index:1 == "multiple" %}
                 <label for="question{{ question.id }}">{{ question.text }}</label>
-                <select {% if types|index:question.type|index:1 == "multiple" %}multiple{% endif %} name="choices" id="question{{ question.id }}">
+                <select {% if types|index:question.type|index:1 == "multiple" %}multiple{% endif %} name="choices" id="question{{ question.id }}" class="form-control">
                     {% for choice in question.choices.all %}
                         <option value="{{ choice.id }}">{{ choice.text }}</option>
                     {% endfor %}
                 </select>
             {% else %}
-                <p>{{ question.text }}</p>
+                <p><strong>{{ question.text }}</strong></p>
                 {% for choice in question.choices.all %}
-                    <input type="{{ types|index:question.type|index:1 }}" name="choices" id="choice{{ choice.id }}" value={{ choice.id }} />
-                    <label for="choice{{ choice.id }}">{{ choice.text }}</label>
+                    <div class="{{ types|index:question.type|index:1 }}">
+                        <label>
+                            <input type="{{ types|index:question.type|index:1 }}" name="choices" id="choice{{ choice.id }}" value="{{ choice.id }}" />
+                            {{ choice.text }}
+                        </label>
+                    </div>
                 {% endfor %}
             {% endif %}
         </fieldset>
     {% endfor %}
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" class="btn btn-primary" />
 </form>
 {% endblock %}

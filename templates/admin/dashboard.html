@@ -4,7 +4,7 @@
         <h1>Dashboard</h1>
         <a href={% url "admin:index" %}>To admin site</a>
         <br />
-        <table>
+        <table class="table">
             <tr>
                 <th>Poll name</th>
                 <th>Votes</th>
@@ -17,7 +17,9 @@
             {% endfor %}
         </table>
         {% if curr_poll is not None %}
-            <table>
+            <br />
+            <h4>{{ curr_poll.name }}</h4>
+            <table class="table">
                 <tr>
                     <th>Question</th>
                     <th>Choices</th>
@@ -26,7 +28,7 @@
                     <tr>
                         <td>{{ question.text }}</td>
                         <td>
-                            <table>
+                            <table class="table table-striped">
                                 {% for choice in question.choices.all %}
                                     <tr>
                                         <td>{{ choice.text }}</td>
